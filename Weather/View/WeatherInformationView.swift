@@ -58,4 +58,13 @@ class WeatherInformationView: UIView {
         self.temperatureLabel.text = temperature
         self.temperatureFeelsLikeLabel.text = temperatureFeelsLike
     }
+
+    func configStyle(themeManager: ThemeManager = ThemeManager.shared) {
+        self.backgroundColor = themeManager.currentTheme.backgroundColor
+        let textColor = themeManager.currentTheme.textColor
+        self.cityNameLabel.textColor = textColor
+        self.weatherLabel.textColor = textColor
+        self.temperatureLabel.textColor = textColor
+        self.temperatureFeelsLikeLabel.textColor = textColor
+    }
 }

@@ -25,14 +25,21 @@ class WeatherInformationInteractor: WeatherInformationBusinessLogic, WeatherInfo
                          location: Location)] = []
 
     func requestSetupView(request: WeatherInformation.SetupView.Request) {
-        self.worker = WeatherInformationWorker()
-        self.presenter?.presentSetupView(response: WeatherInformation.SetupView.Response())
+        let worker = WeatherInformationWorker()
+        self.worker = worker
 
-        self.searchHistory = self.worker?.getSearchHistoryFromUserDefault() ?? []
-        self.presenter?.presentUpdateRecentSearch(response: WeatherInformation.UpdateRecentSearch.Response(searchHistory: self.searchHistory))
+        let setupViewResponse = WeatherInformation.SetupView.Response()
+        self.presenter?.presentSetupView(response: setupViewResponse)
+
+        self.searchHistory = worker.getSearchHistoryFromUserDefault()
+        let updateRecentSearchResponse = WeatherInformation.UpdateRecentSearch.Response(searchHistory: self.searchHistory)
+        self.presenter?.presentUpdateRecentSearch(response: updateRecentSearchResponse)
 
         if !self.searchHistory.isEmpty, let mostRecentSearch = self.searchHistory.first {
-            self.requestWeatherData(request: WeatherInformation.WeatherData.Request(searchType: .location(mostRecentSearch.location)))
+            let weatherDataRequest = WeatherInformation.WeatherData.Request(
+                searchType: .location(mostRecentSearch.location)
+            )
+            self.requestWeatherData(request: weatherDataRequest)
         }
     }
 
