@@ -55,4 +55,13 @@ enum WeatherInformation {
                                  location: Location)]
         }
     }
+
+    enum Error {
+        struct Request {}
+        struct Response {}
+        struct ViewModel {
+            let title: String?
+            let message: String?
+        }
+    }
 }

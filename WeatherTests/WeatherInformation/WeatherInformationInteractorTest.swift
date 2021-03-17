@@ -13,10 +13,12 @@ class WeatherInformationInteractorTest: XCTestCase {
         var isPresentSetupViewCalled = false
         var isPresentWeatherDataCalled = false
         var isPresentUpdateRecentSearchCalled = false
+        var isPresentErrorCalled = false
 
         var setupViewResponse: WeatherInformation.SetupView.Response?
         var weatherDataResponse: WeatherInformation.WeatherData.Response?
         var updateRecentSearchResponse: WeatherInformation.UpdateRecentSearch.Response?
+        var errorResponse: WeatherInformation.Error.Response?
 
         func presentSetupView(response: WeatherInformation.SetupView.Response) {
             self.isPresentSetupViewCalled = true
@@ -31,6 +33,11 @@ class WeatherInformationInteractorTest: XCTestCase {
         func presentUpdateRecentSearch(response: WeatherInformation.UpdateRecentSearch.Response) {
             self.isPresentUpdateRecentSearchCalled = true
             self.updateRecentSearchResponse = response
+        }
+
+        func presentError(response: WeatherInformation.Error.Response) {
+            self.isPresentErrorCalled = true
+            self.errorResponse = response
         }
     }
 

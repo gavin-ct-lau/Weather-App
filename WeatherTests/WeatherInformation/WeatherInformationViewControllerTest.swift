@@ -40,7 +40,7 @@ class WeatherInformationViewControllerTest: XCTestCase {
 
     func testDisplaySetupView(viewModel: WeatherInformation.SetupView.ViewModel) {
         // Given
-        let sut = WeatherInformationViewController()
+        let sut = WeatherInformationViewController(nibName: nil, bundle: nil)
         let weatherInformationRouterSpy = WeatherInformationRouterSpy()
         sut.router = weatherInformationRouterSpy
         let weatherInformationInteractorSpy = WeatherInformationInteractorSpy()
@@ -63,7 +63,7 @@ class WeatherInformationViewControllerTest: XCTestCase {
 
     func testDisplayWeatherData(viewModel: WeatherInformation.WeatherData.ViewModel) {
         // Given
-        let sut = WeatherInformationViewController()
+        let sut = WeatherInformationViewController(nibName: nil, bundle: nil)
         let weatherInformationRouterSpy = WeatherInformationRouterSpy()
         sut.router = weatherInformationRouterSpy
         let weatherInformationInteractorSpy = WeatherInformationInteractorSpy()
@@ -91,7 +91,7 @@ class WeatherInformationViewControllerTest: XCTestCase {
 
     func testDisplayUpdateRecentSearch(viewModel: WeatherInformation.UpdateRecentSearch.ViewModel) {
         // Given
-        let sut = WeatherInformationViewController()
+        let sut = WeatherInformationViewController(nibName: nil, bundle: nil)
         let weatherInformationRouterSpy = WeatherInformationRouterSpy()
         sut.router = weatherInformationRouterSpy
         let weatherInformationInteractorSpy = WeatherInformationInteractorSpy()

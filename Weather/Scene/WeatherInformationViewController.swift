@@ -13,18 +13,23 @@ protocol WeatherInformationDisplayLogic: class {
     func displaySetupView(viewModel: WeatherInformation.SetupView.ViewModel)
     func displayWeatherData(viewModel: WeatherInformation.WeatherData.ViewModel)
     func displayUpdateRecentSearch(viewModel: WeatherInformation.UpdateRecentSearch.ViewModel)
+    func displayError(viewModel: WeatherInformation.Error.ViewModel)
 }
 
 class WeatherInformationViewController: UIViewController, WeatherInformationDisplayLogic {
     var interactor: WeatherInformationBusinessLogic?
     var router: (WeatherInformationRoutingLogic & WeatherInformationDataPassing)?
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    let themeManager: ThemeManager
+    init(themeManager: ThemeManager = ThemeManager.shared,
+         nibName nibNameOrNil: String?,
+         bundle nibBundleOrNil: Bundle?) {
+        self.themeManager = themeManager
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     let locationManager = CLLocationManager()
@@ -39,7 +44,19 @@ class WeatherInformationViewController: UIViewController, WeatherInformationDisp
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.configStyle()
+
         self.interactor?.requestSetupView(request: WeatherInformation.SetupView.Request())
+    }
+
+    func configStyle() {
+        let theme = self.themeManager.currentTheme
+        self.view.backgroundColor = theme.backgroundColor
+        self.tableView.backgroundColor = theme.backgroundColor
+        self.searchBar.barTintColor = theme.backgroundColor
+        self.searchBar.tintColor = theme.textColor
+        self.searchBar.searchTextField.textColor = theme.textColor
+        self.searchBar.searchTextField.tintColor = theme.textColor
     }
 
     private func requestWeatherData(searchWord: String?) {
@@ -66,6 +83,7 @@ extension WeatherInformationViewController {
                                                weather: nil,
                                                temperature: nil,
                                                temperatureFeelsLike: nil)
+        self.weatherInformationView.configStyle(themeManager: self.themeManager)
     }
 
     func displayWeatherData(viewModel: WeatherInformation.WeatherData.ViewModel) {
@@ -79,6 +97,17 @@ extension WeatherInformationViewController {
     func displayUpdateRecentSearch(viewModel: WeatherInformation.UpdateRecentSearch.ViewModel) {
         self.searchHistory = viewModel.searchHistory
         self.tableView.reloadData()
+    }
+
+    func displayError(viewModel: WeatherInformation.Error.ViewModel) {
+        let alertController = UIAlertController(title: viewModel.title,
+                                                message: viewModel.message,
+                                                preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        alertController.addAction(okAction)
+
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -102,36 +131,41 @@ extension WeatherInformationViewController: UISearchBarDelegate {
     }
 
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        guard self.hasLocationPermission() else {
+            let alertController = UIAlertController(title: "Location Permission Required",
+                                                    message: "Please enable location permissions in settings.",
+                                                    preferredStyle: .alert)
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alertController.addAction(cancelAction)
+
+            let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            })
+            alertController.addAction(okAction)
+
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        self.locationManager.startUpdatingLocation()
+    }
+
+    private func hasLocationPermission() -> Bool {
         if CLLocationManager.locationServicesEnabled() {
             switch self.locationManager.authorizationStatus {
-            //check if services disallowed for this app particularly
             case .restricted, .denied:
-                let accessAlert = UIAlertController(
-                    title: "Location Services Disabled",
-                    message: "You need to enable location services in settings.",
-                    preferredStyle: .alert)
-
-                accessAlert.addAction(UIAlertAction(title: "Okay!",
-                                                    style: .default,
-                                                    handler: { action in
-                                                        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                                                        UIApplication.shared.open(url,
-                                                                                  options: [:],
-                                                                                  completionHandler: nil)
-                                                    }))
-
-                self.present(accessAlert, animated: true, completion: nil)
-            case .authorizedAlways, .authorizedWhenInUse:
-                locationManager.delegate = self
-                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-                locationManager.startUpdatingLocation()
-            case .notDetermined:
-                self.locationManager.requestAlwaysAuthorization()
-                self.locationManager.requestWhenInUseAuthorization()
+                return false
+            case .notDetermined, .authorizedAlways, .authorizedWhenInUse:
+                return true
             @unknown default:
-                break
+                fatalError()
             }
         }
+        return false
     }
 }
 
@@ -147,15 +181,22 @@ extension WeatherInformationViewController: UITableViewDelegate {
         self.interactor?.requestWeatherData(request: request)
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
             self.searchHistory.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            let request = WeatherInformation.UpdateRecentSearch.Request(searchHistory: self.searchHistory, shouldReloadTableView: false)
+            let request = WeatherInformation.UpdateRecentSearch.Request(
+                searchHistory: self.searchHistory,
+                shouldReloadTableView: false
+            )
             self.interactor?.requestUpdateRecentSearch(request: request)
         case .insert, .none:
             break
+        @unknown default:
+            fatalError()
         }
     }
 }
@@ -172,7 +213,9 @@ extension WeatherInformationViewController: UITableViewDataSource {
         let cityName = searchHistory.cityName
         let latitude = searchHistory.location.latitude
         let longitude = searchHistory.location.longitude
+        cell.backgroundColor = themeManager.currentTheme.backgroundColor
         cell.textLabel?.text = "\(cityName) (\(latitude), \(longitude))"
+        cell.textLabel?.textColor = themeManager.currentTheme.textColor
         return cell
     }
 }
