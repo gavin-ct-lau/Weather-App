@@ -102,36 +102,40 @@ extension WeatherInformationViewController: UISearchBarDelegate {
     }
 
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        guard self.hasLocationPermission() else {
+            let alertController = UIAlertController(title: "Location Permission Required",
+                                                    message: "Please enable location permissions in settings.",
+                                                    preferredStyle: .alert)
+
+            let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            })
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alertController.addAction(cancelAction)
+
+            alertController.addAction(okAction)
+
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        self.locationManager.startUpdatingLocation()
+    }
+
+    private func hasLocationPermission() -> Bool {
         if CLLocationManager.locationServicesEnabled() {
             switch self.locationManager.authorizationStatus {
-            //check if services disallowed for this app particularly
             case .restricted, .denied:
-                let accessAlert = UIAlertController(
-                    title: "Location Services Disabled",
-                    message: "You need to enable location services in settings.",
-                    preferredStyle: .alert)
-
-                accessAlert.addAction(UIAlertAction(title: "Okay!",
-                                                    style: .default,
-                                                    handler: { action in
-                                                        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                                                        UIApplication.shared.open(url,
-                                                                                  options: [:],
-                                                                                  completionHandler: nil)
-                                                    }))
-
-                self.present(accessAlert, animated: true, completion: nil)
-            case .authorizedAlways, .authorizedWhenInUse:
-                locationManager.delegate = self
-                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-                locationManager.startUpdatingLocation()
-            case .notDetermined:
-                self.locationManager.requestAlwaysAuthorization()
-                self.locationManager.requestWhenInUseAuthorization()
-            @unknown default:
-                break
+                return false
+            case .notDetermined, .authorizedAlways, .authorizedWhenInUse:
+                return true
             }
         }
+        return false
     }
 }
 
