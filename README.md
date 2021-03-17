@@ -11,6 +11,10 @@ Weather is a simple app to display weathers by searching the city name or zip co
 - Swipe to delete the item in recent search list.
 - Unit Test Driven
 
+## Library
+- Alamofire
+- SwiftLint
+
 ## Getting Started
 
 Before building the project, please run:
