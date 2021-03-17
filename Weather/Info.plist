@@ -27,8 +27,6 @@
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Weather requires user’s location for better user experience.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Weather requires user’s location for better user experience.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Weather requires user’s location for better user experience.</string>
 	<key>UIApplicationSceneManifest</key>
