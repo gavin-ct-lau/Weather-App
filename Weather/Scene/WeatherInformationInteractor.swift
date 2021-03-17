@@ -63,9 +63,8 @@ extension WeatherInformationInteractor {
                     switch result {
                     case .success(let weatherResponse):
                         self?.presentWeatherData(weatherResponse: weatherResponse)
-                    case .failure(let error):
-                        // TODO: error handling
-                        print(error.localizedDescription)
+                    case .failure:
+                        self?.presenter?.presentError(response: WeatherInformation.Error.Response())
                     }
                 }
             } else {
@@ -73,21 +72,19 @@ extension WeatherInformationInteractor {
                     switch result {
                     case .success(let weatherResponse):
                         self?.presentWeatherData(weatherResponse: weatherResponse)
-                    case .failure(let error):
-                        // TODO: error handling
-                        print(error.localizedDescription)
+                    case .failure:
+                        self?.presenter?.presentError(response: WeatherInformation.Error.Response())
                     }
                 }
             }
-        case let .location(latitude, longitude):
+        case let .location((latitude, longitude)):
             self.worker?.fetchWeatherDataByGeographicCoordinates(latitude: latitude,
                                                                  longitude: longitude) { [weak self] result in
                 switch result {
                 case .success(let weatherResponse):
                     self?.presentWeatherData(weatherResponse: weatherResponse)
-                case .failure(let error):
-                    // TODO: error handling
-                    print(error.localizedDescription)
+                case .failure:
+                    self?.presenter?.presentError(response: WeatherInformation.Error.Response())
                 }
             }
         }

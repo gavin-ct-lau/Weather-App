@@ -12,6 +12,7 @@ protocol WeatherInformationPresentationLogic {
     func presentSetupView(response: WeatherInformation.SetupView.Response)
     func presentWeatherData(response: WeatherInformation.WeatherData.Response)
     func presentUpdateRecentSearch(response: WeatherInformation.UpdateRecentSearch.Response)
+    func presentError(response: WeatherInformation.Error.Response)
 }
 
 class WeatherInformationPresenter: WeatherInformationPresentationLogic {
@@ -49,5 +50,11 @@ class WeatherInformationPresenter: WeatherInformationPresentationLogic {
     func presentUpdateRecentSearch(response: WeatherInformation.UpdateRecentSearch.Response) {
         let viewModel = WeatherInformation.UpdateRecentSearch.ViewModel(searchHistory: response.searchHistory)
         self.viewController?.displayUpdateRecentSearch(viewModel: viewModel)
+    }
+
+    func presentError(response: WeatherInformation.Error.Response) {
+        let viewModel = WeatherInformation.Error.ViewModel(title: "Error",
+                                                           message: "City not found!")
+        self.viewController?.displayError(viewModel: viewModel)
     }
 }
