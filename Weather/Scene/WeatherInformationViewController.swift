@@ -13,6 +13,7 @@ protocol WeatherInformationDisplayLogic: class {
     func displaySetupView(viewModel: WeatherInformation.SetupView.ViewModel)
     func displayWeatherData(viewModel: WeatherInformation.WeatherData.ViewModel)
     func displayUpdateRecentSearch(viewModel: WeatherInformation.UpdateRecentSearch.ViewModel)
+    func displayError(viewModel: WeatherInformation.Error.ViewModel)
 }
 
 class WeatherInformationViewController: UIViewController, WeatherInformationDisplayLogic {
@@ -97,6 +98,17 @@ extension WeatherInformationViewController {
         self.searchHistory = viewModel.searchHistory
         self.tableView.reloadData()
     }
+
+    func displayError(viewModel: WeatherInformation.Error.ViewModel) {
+        let alertController = UIAlertController(title: viewModel.title,
+                                                message: viewModel.message,
+                                                preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        alertController.addAction(okAction)
+
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension WeatherInformationViewController: UISearchBarDelegate {
@@ -124,13 +136,12 @@ extension WeatherInformationViewController: UISearchBarDelegate {
                                                     message: "Please enable location permissions in settings.",
                                                     preferredStyle: .alert)
 
-            let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-            })
-
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             alertController.addAction(cancelAction)
 
+            let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            })
             alertController.addAction(okAction)
 
             self.present(alertController, animated: true, completion: nil)
@@ -150,6 +161,8 @@ extension WeatherInformationViewController: UISearchBarDelegate {
                 return false
             case .notDetermined, .authorizedAlways, .authorizedWhenInUse:
                 return true
+            @unknown default:
+                fatalError()
             }
         }
         return false
