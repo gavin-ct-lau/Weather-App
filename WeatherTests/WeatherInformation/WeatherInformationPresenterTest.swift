@@ -13,10 +13,12 @@ class WeatherInformationPresenterTest: XCTestCase {
         var isDisplaySetupViewCalled = false
         var isDisplayWeatherDataCalled = false
         var isDisplayUpdateRecentSearchCalled = false
+        var isDisplayErrorCalled = false
 
         var setupViewViewModel: WeatherInformation.SetupView.ViewModel?
         var weatherDataViewModel: WeatherInformation.WeatherData.ViewModel?
         var updateRecentSearchViewModel: WeatherInformation.UpdateRecentSearch.ViewModel?
+        var errorViewModel: WeatherInformation.Error.ViewModel?
 
         func displaySetupView(viewModel: WeatherInformation.SetupView.ViewModel) {
             self.isDisplaySetupViewCalled = true
@@ -31,6 +33,11 @@ class WeatherInformationPresenterTest: XCTestCase {
         func displayUpdateRecentSearch(viewModel: WeatherInformation.UpdateRecentSearch.ViewModel) {
             self.isDisplayUpdateRecentSearchCalled = true
             self.updateRecentSearchViewModel = viewModel
+        }
+
+        func displayError(viewModel: WeatherInformation.Error.ViewModel) {
+            self.isDisplayErrorCalled = true
+            self.errorViewModel = viewModel
         }
     }
 
@@ -83,10 +90,28 @@ class WeatherInformationPresenterTest: XCTestCase {
         let weatherInformationViewControllerSpy = WeatherInformationViewControllerSpy()
         sut.viewController = weatherInformationViewControllerSpy
 
+        let response = WeatherInformation.UpdateRecentSearch.Response(
+            searchHistory: [("London", Location(20, -20))]
+        )
         // When
-        sut.presentSetupView(response: WeatherInformation.SetupView.Response())
+        sut.presentUpdateRecentSearch(response: response)
 
         // Then
-        XCTAssertTrue(weatherInformationViewControllerSpy.isDisplaySetupViewCalled)
+        XCTAssertTrue(weatherInformationViewControllerSpy.isDisplayUpdateRecentSearchCalled)
+    }
+
+    func testPresentError(response: WeatherInformation.Error.Response) {
+        // Given
+        let sut = WeatherInformationPresenter()
+        let weatherInformationViewControllerSpy = WeatherInformationViewControllerSpy()
+        sut.viewController = weatherInformationViewControllerSpy
+
+        // When
+        sut.presentError(response: WeatherInformation.Error.Response())
+
+        // Then
+        XCTAssertTrue(weatherInformationViewControllerSpy.isDisplayErrorCalled)
+        XCTAssertEqual(weatherInformationViewControllerSpy.errorViewModel?.title, "Error")
+        XCTAssertEqual(weatherInformationViewControllerSpy.errorViewModel?.message, "City not found!")
     }
 }
