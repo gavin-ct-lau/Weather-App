@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherInformationViewController" customModule="Weather" customModuleProvider="target">
+            <connections>
+                <outlet property="searchBar" destination="O9b-nm-bSV" id="Tlh-qg-BoK"/>
+                <outlet property="tableView" destination="4hb-Ij-v4f" id="0rc-Ls-dUs"/>
+                <outlet property="view" destination="QF7-53-SAs" id="KAs-0E-foH"/>
+                <outlet property="weatherInformationView" destination="Rji-tN-pHz" id="Tfp-k1-4KR"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="QF7-53-SAs">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="O9b-nm-bSV">
+                    <rect key="frame" x="8" y="44" width="398" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <scopeButtonTitles>
+                        <string>Title</string>
+                        <string>Title</string>
+                    </scopeButtonTitles>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="fB0-k0-e6A"/>
+                    </connections>
+                </searchBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4hb-Ij-v4f">
+                    <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="p2R-67-Rsd"/>
+                        <outlet property="delegate" destination="-1" id="89Q-Xx-e2V"/>
+                    </connections>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rji-tN-pHz" customClass="WeatherInformationView" customModule="Weather" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="OYb-wQ-afm"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="OYb-wQ-afm" firstAttribute="trailing" secondItem="Rji-tN-pHz" secondAttribute="trailing" id="6U3-Hf-feL"/>
+                <constraint firstItem="OYb-wQ-afm" firstAttribute="trailing" secondItem="4hb-Ij-v4f" secondAttribute="trailing" id="Eyo-zu-sRZ"/>
+                <constraint firstItem="O9b-nm-bSV" firstAttribute="top" secondItem="OYb-wQ-afm" secondAttribute="top" id="M9m-Be-uQ1"/>
+                <constraint firstItem="4hb-Ij-v4f" firstAttribute="leading" secondItem="OYb-wQ-afm" secondAttribute="leading" id="Ngt-ce-GdB"/>
+                <constraint firstItem="OYb-wQ-afm" firstAttribute="bottom" secondItem="4hb-Ij-v4f" secondAttribute="bottom" id="W7C-MT-RdG"/>
+                <constraint firstItem="OYb-wQ-afm" firstAttribute="bottom" secondItem="Rji-tN-pHz" secondAttribute="bottom" id="j9S-qV-Gka"/>
+                <constraint firstItem="OYb-wQ-afm" firstAttribute="trailing" secondItem="O9b-nm-bSV" secondAttribute="trailing" constant="8" id="kgc-RQ-Xlb"/>
+                <constraint firstItem="4hb-Ij-v4f" firstAttribute="top" secondItem="O9b-nm-bSV" secondAttribute="bottom" id="pSO-pj-Ttr"/>
+                <constraint firstItem="O9b-nm-bSV" firstAttribute="leading" secondItem="OYb-wQ-afm" secondAttribute="leading" constant="8" id="pwq-Pn-vcW"/>
+                <constraint firstItem="Rji-tN-pHz" firstAttribute="leading" secondItem="OYb-wQ-afm" secondAttribute="leading" id="qfT-j5-Z04"/>
+                <constraint firstItem="Rji-tN-pHz" firstAttribute="top" secondItem="O9b-nm-bSV" secondAttribute="bottom" id="vqg-Wy-RGk"/>
+            </constraints>
+            <point key="canvasLocation" x="-161" y="-524"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
