@@ -19,7 +19,8 @@ class WeatherInformationPresenter: WeatherInformationPresentationLogic {
     weak var viewController: WeatherInformationDisplayLogic?
 
     func presentSetupView(response: WeatherInformation.SetupView.Response) {
-        self.viewController?.displaySetupView(viewModel: WeatherInformation.SetupView.ViewModel())
+        let viewModel = WeatherInformation.SetupView.ViewModel()
+        self.viewController?.displaySetupView(viewModel: viewModel)
     }
 
     func presentWeatherData(response: WeatherInformation.WeatherData.Response) {

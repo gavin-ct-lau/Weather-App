@@ -33,7 +33,7 @@
                     </connections>
                 </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4hb-Ij-v4f">
-                    <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                    <rect key="frame" x="0.0" y="100" width="414" height="796"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="p2R-67-Rsd"/>
@@ -41,7 +41,7 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rji-tN-pHz" customClass="WeatherInformationView" customModule="Weather" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                    <rect key="frame" x="0.0" y="100" width="414" height="796"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </subviews>
@@ -52,8 +52,8 @@
                 <constraint firstItem="OYb-wQ-afm" firstAttribute="trailing" secondItem="4hb-Ij-v4f" secondAttribute="trailing" id="Eyo-zu-sRZ"/>
                 <constraint firstItem="O9b-nm-bSV" firstAttribute="top" secondItem="OYb-wQ-afm" secondAttribute="top" id="M9m-Be-uQ1"/>
                 <constraint firstItem="4hb-Ij-v4f" firstAttribute="leading" secondItem="OYb-wQ-afm" secondAttribute="leading" id="Ngt-ce-GdB"/>
-                <constraint firstItem="OYb-wQ-afm" firstAttribute="bottom" secondItem="4hb-Ij-v4f" secondAttribute="bottom" id="W7C-MT-RdG"/>
-                <constraint firstItem="OYb-wQ-afm" firstAttribute="bottom" secondItem="Rji-tN-pHz" secondAttribute="bottom" id="j9S-qV-Gka"/>
+                <constraint firstAttribute="bottom" secondItem="4hb-Ij-v4f" secondAttribute="bottom" id="W7C-MT-RdG"/>
+                <constraint firstAttribute="bottom" secondItem="Rji-tN-pHz" secondAttribute="bottom" id="j9S-qV-Gka"/>
                 <constraint firstItem="OYb-wQ-afm" firstAttribute="trailing" secondItem="O9b-nm-bSV" secondAttribute="trailing" constant="8" id="kgc-RQ-Xlb"/>
                 <constraint firstItem="4hb-Ij-v4f" firstAttribute="top" secondItem="O9b-nm-bSV" secondAttribute="bottom" id="pSO-pj-Ttr"/>
                 <constraint firstItem="O9b-nm-bSV" firstAttribute="leading" secondItem="OYb-wQ-afm" secondAttribute="leading" constant="8" id="pwq-Pn-vcW"/>
