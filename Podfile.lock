@@ -1,0 +1,20 @@
+PODS:
+  - Alamofire (5.4.1)
+  - SwiftLint (0.43.0)
+
+DEPENDENCIES:
+  - Alamofire (= 5.4.1)
+  - SwiftLint (= 0.43.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  SwiftLint: 0c645fdc6feed3e390c1701ab3cc669f88b42752
+
+PODFILE CHECKSUM: 1aa8208b5ef94e5f2096b8d78aef7217cf8321e3
+
+COCOAPODS: 1.9.1
