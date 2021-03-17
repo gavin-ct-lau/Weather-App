@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2D77E47E60CF30E07B69D7BE /* Pods_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E410E31520E3AF763817D40D /* Pods_Weather.framework */; };
+		D44DF32F260247410098D5E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D44DF331260247410098D5E0 /* InfoPlist.strings */; };
+		D44DF341260249260098D5E0 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44DF340260249260098D5E0 /* ThemeManager.swift */; };
 		D481962225FD22C400A2820B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481962125FD22C400A2820B /* AppDelegate.swift */; };
 		D481962425FD22C400A2820B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481962325FD22C400A2820B /* SceneDelegate.swift */; };
 		D481962625FD22C400A2820B /* WeatherInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481962525FD22C400A2820B /* WeatherInformationViewController.swift */; };
-		D481962925FD22C400A2820B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D481962725FD22C400A2820B /* Main.storyboard */; };
 		D481962B25FD22C700A2820B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D481962A25FD22C700A2820B /* Assets.xcassets */; };
 		D481962E25FD22C700A2820B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D481962C25FD22C700A2820B /* LaunchScreen.storyboard */; };
 		D481963925FD22C700A2820B /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481963825FD22C700A2820B /* WeatherTests.swift */; };
@@ -63,11 +64,16 @@
 		87BE82E88C3263C038326379 /* Pods-WeatherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherTests.release.xcconfig"; path = "Target Support Files/Pods-WeatherTests/Pods-WeatherTests.release.xcconfig"; sourceTree = "<group>"; };
 		8FCD44C9801DC15CE0E7B16B /* Pods-Weather-WeatherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather-WeatherUITests.debug.xcconfig"; path = "Target Support Files/Pods-Weather-WeatherUITests/Pods-Weather-WeatherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A7180764AE3DB68B02305E35 /* Pods_WeatherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D44DF319260242280098D5E0 /* en-AU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-AU"; path = "en-AU.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		D44DF330260247410098D5E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D44DF335260247440098D5E0 /* en-AU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-AU"; path = "en-AU.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D44DF33B260248590098D5E0 /* en-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-CA"; path = "en-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		D44DF33C260248590098D5E0 /* en-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-CA"; path = "en-CA.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		D44DF340260249260098D5E0 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		D481961E25FD22C400A2820B /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D481962125FD22C400A2820B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D481962325FD22C400A2820B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D481962525FD22C400A2820B /* WeatherInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInformationViewController.swift; sourceTree = "<group>"; };
-		D481962825FD22C400A2820B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D481962A25FD22C700A2820B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D481962D25FD22C700A2820B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D481962F25FD22C700A2820B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -181,10 +187,10 @@
 				D48196D526012D7F00A2820B /* Constant.swift */,
 				D481962125FD22C400A2820B /* AppDelegate.swift */,
 				D481962325FD22C400A2820B /* SceneDelegate.swift */,
-				D481962725FD22C400A2820B /* Main.storyboard */,
 				D481962A25FD22C700A2820B /* Assets.xcassets */,
 				D481962C25FD22C700A2820B /* LaunchScreen.storyboard */,
 				D481962F25FD22C700A2820B /* Info.plist */,
+				D44DF331260247410098D5E0 /* InfoPlist.strings */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -221,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				D481968B25FEF30900A2820B /* APIManager.swift */,
+				D44DF340260249260098D5E0 /* ThemeManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -358,6 +365,8 @@
 			knownRegions = (
 				en,
 				Base,
+				"en-AU",
+				"en-CA",
 			);
 			mainGroup = D481961525FD22C400A2820B;
 			productRefGroup = D481961F25FD22C400A2820B /* Products */;
@@ -377,9 +386,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D481969625FEF7ED00A2820B /* WeatherInformationView.xib in Resources */,
+				D44DF32F260247410098D5E0 /* InfoPlist.strings in Resources */,
 				D481962E25FD22C700A2820B /* LaunchScreen.storyboard in Resources */,
 				D481962B25FD22C700A2820B /* Assets.xcassets in Resources */,
-				D481962925FD22C400A2820B /* Main.storyboard in Resources */,
 				D48196C4260127C300A2820B /* WeatherInformationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,6 +537,7 @@
 			files = (
 				D48196BF260127C300A2820B /* WeatherInformationRouter.swift in Sources */,
 				D48196C0260127C300A2820B /* WeatherInformationModels.swift in Sources */,
+				D44DF341260249260098D5E0 /* ThemeManager.swift in Sources */,
 				D481968C25FEF30900A2820B /* APIManager.swift in Sources */,
 				D48196C2260127C300A2820B /* WeatherInformationInteractor.swift in Sources */,
 				D48196C3260127C300A2820B /* WeatherInformationConfigurator.swift in Sources */,
@@ -579,18 +589,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D481962725FD22C400A2820B /* Main.storyboard */ = {
+		D44DF331260247410098D5E0 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D481962825FD22C400A2820B /* Base */,
+				D44DF330260247410098D5E0 /* en */,
+				D44DF335260247440098D5E0 /* en-AU */,
+				D44DF33C260248590098D5E0 /* en-CA */,
 			);
-			name = Main.storyboard;
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		D481962C25FD22C700A2820B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D481962D25FD22C700A2820B /* Base */,
+				D44DF319260242280098D5E0 /* en-AU */,
+				D44DF33B260248590098D5E0 /* en-CA */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -602,6 +616,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -663,6 +678,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

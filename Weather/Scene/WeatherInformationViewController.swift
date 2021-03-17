@@ -19,12 +19,16 @@ class WeatherInformationViewController: UIViewController, WeatherInformationDisp
     var interactor: WeatherInformationBusinessLogic?
     var router: (WeatherInformationRoutingLogic & WeatherInformationDataPassing)?
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    let themeManager: ThemeManager
+    init(themeManager: ThemeManager = ThemeManager.shared,
+         nibName nibNameOrNil: String?,
+         bundle nibBundleOrNil: Bundle?) {
+        self.themeManager = themeManager
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     let locationManager = CLLocationManager()
@@ -39,7 +43,19 @@ class WeatherInformationViewController: UIViewController, WeatherInformationDisp
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.configStyle()
+
         self.interactor?.requestSetupView(request: WeatherInformation.SetupView.Request())
+    }
+
+    func configStyle() {
+        let theme = self.themeManager.currentTheme
+        self.view.backgroundColor = theme.backgroundColor
+        self.tableView.backgroundColor = theme.backgroundColor
+        self.searchBar.barTintColor = theme.backgroundColor
+        self.searchBar.tintColor = theme.textColor
+        self.searchBar.searchTextField.textColor = theme.textColor
+        self.searchBar.searchTextField.tintColor = theme.textColor
     }
 
     private func requestWeatherData(searchWord: String?) {
@@ -66,6 +82,7 @@ extension WeatherInformationViewController {
                                                weather: nil,
                                                temperature: nil,
                                                temperatureFeelsLike: nil)
+        self.weatherInformationView.configStyle(themeManager: self.themeManager)
     }
 
     func displayWeatherData(viewModel: WeatherInformation.WeatherData.ViewModel) {
@@ -151,15 +168,22 @@ extension WeatherInformationViewController: UITableViewDelegate {
         self.interactor?.requestWeatherData(request: request)
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
             self.searchHistory.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            let request = WeatherInformation.UpdateRecentSearch.Request(searchHistory: self.searchHistory, shouldReloadTableView: false)
+            let request = WeatherInformation.UpdateRecentSearch.Request(
+                searchHistory: self.searchHistory,
+                shouldReloadTableView: false
+            )
             self.interactor?.requestUpdateRecentSearch(request: request)
         case .insert, .none:
             break
+        @unknown default:
+            fatalError()
         }
     }
 }
@@ -176,7 +200,9 @@ extension WeatherInformationViewController: UITableViewDataSource {
         let cityName = searchHistory.cityName
         let latitude = searchHistory.location.latitude
         let longitude = searchHistory.location.longitude
+        cell.backgroundColor = themeManager.currentTheme.backgroundColor
         cell.textLabel?.text = "\(cityName) (\(latitude), \(longitude))"
+        cell.textLabel?.textColor = themeManager.currentTheme.textColor
         return cell
     }
 }
