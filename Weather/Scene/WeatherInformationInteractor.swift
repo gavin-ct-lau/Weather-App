@@ -101,16 +101,15 @@ extension WeatherInformationInteractor {
         let response = WeatherInformation.WeatherData.Response(weatherResponse: weatherResponse)
         self.presenter?.presentWeatherData(response: response)
 
-        if let cityName = weatherResponse.cityName, !cityName.isEmpty,
-           let latitude = weatherResponse.coordinate?.latitude,
+        if let latitude = weatherResponse.coordinate?.latitude,
            let longitude = weatherResponse.coordinate?.longitude {
             var searchHistory = self.searchHistory
             searchHistory.removeAll {
-                $0.cityName == cityName &&
-                    $0.location.latitude == latitude &&
+                $0.location.latitude == latitude &&
                     $0.location.longitude == longitude
             }
-            searchHistory.insert((cityName, Location(latitude, longitude)), at: 0)
+            searchHistory.insert((weatherResponse.cityName ?? "", Location(latitude, longitude)),
+                                 at: 0)
             let request = WeatherInformation.UpdateRecentSearch.Request(searchHistory: searchHistory,
                                                                         shouldReloadTableView: true)
             self.requestUpdateRecentSearch(request: request)
