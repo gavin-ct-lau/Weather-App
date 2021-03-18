@@ -95,7 +95,7 @@ class WeatherInformationInteractorTest: XCTestCase {
         XCTAssertTrue(weatherInformationPresenterSpy.isPresentUpdateRecentSearchCalled)
     }
 
-    func testRequestWeatherData() {
+    func testRequestWeatherDataByCityName() {
         // Given
         let sut = WeatherInformationInteractor()
         let weatherInformationPresenterSpy = WeatherInformationPresenterSpy()
@@ -104,14 +104,52 @@ class WeatherInformationInteractorTest: XCTestCase {
         sut.worker = weatherInformationWorkerSpy
 
         // When
-        sut.requestWeatherData(request: WeatherInformation.WeatherData.Request(searchType: .input("London")))
+        let request = WeatherInformation.WeatherData.Request(searchType: .input("London"))
+        sut.requestWeatherData(request: request)
 
         // Then
         XCTAssertTrue(weatherInformationPresenterSpy.isPresentWeatherDataCalled)
         XCTAssertNotNil(weatherInformationPresenterSpy.weatherDataResponse)
         XCTAssertTrue(weatherInformationPresenterSpy.isPresentUpdateRecentSearchCalled)
         XCTAssertTrue(weatherInformationWorkerSpy.isSetSearchHistoryToUserDefaultCalled)
+    }
 
+    func testRequestWeatherDataByZipCode() {
+        // Given
+        let sut = WeatherInformationInteractor()
+        let weatherInformationPresenterSpy = WeatherInformationPresenterSpy()
+        sut.presenter = weatherInformationPresenterSpy
+        let weatherInformationWorkerSpy = WeatherInformationWorkerSpy()
+        sut.worker = weatherInformationWorkerSpy
+
+        // When
+        let request = WeatherInformation.WeatherData.Request(searchType: .input("94040"))
+        sut.requestWeatherData(request: request)
+
+        // Then
+        XCTAssertTrue(weatherInformationPresenterSpy.isPresentWeatherDataCalled)
+        XCTAssertNotNil(weatherInformationPresenterSpy.weatherDataResponse)
+        XCTAssertTrue(weatherInformationPresenterSpy.isPresentUpdateRecentSearchCalled)
+        XCTAssertTrue(weatherInformationWorkerSpy.isSetSearchHistoryToUserDefaultCalled)
+    }
+
+    func testRequestWeatherDataByLocation() {
+        // Given
+        let sut = WeatherInformationInteractor()
+        let weatherInformationPresenterSpy = WeatherInformationPresenterSpy()
+        sut.presenter = weatherInformationPresenterSpy
+        let weatherInformationWorkerSpy = WeatherInformationWorkerSpy()
+        sut.worker = weatherInformationWorkerSpy
+
+        // When
+        let request = WeatherInformation.WeatherData.Request(searchType: .location(Location(50, -50)))
+        sut.requestWeatherData(request: request)
+
+        // Then
+        XCTAssertTrue(weatherInformationPresenterSpy.isPresentWeatherDataCalled)
+        XCTAssertNotNil(weatherInformationPresenterSpy.weatherDataResponse)
+        XCTAssertTrue(weatherInformationPresenterSpy.isPresentUpdateRecentSearchCalled)
+        XCTAssertTrue(weatherInformationWorkerSpy.isSetSearchHistoryToUserDefaultCalled)
     }
 
     func testRequestUpdateRecentSearch() {
