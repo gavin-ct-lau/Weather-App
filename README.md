@@ -9,6 +9,7 @@ Weather is a simple app to display weathers by searching the city name or zip co
 - Most recent search location loads automatically when the open app after closing it.
 - Recent searches list appear when the UISearchBar is being active, clicking to display weather.
 - Swipe to delete the item in recent search list.
+- Multi Market (Different App name and theme)
 - Unit Test Driven
 
 ## Library
