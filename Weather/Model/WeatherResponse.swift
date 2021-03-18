@@ -13,7 +13,7 @@ struct WeatherResponse: Decodable {
     let base: String?
     let temperature: Temperature?
     let timezone: Int?
-    let id: Int?
+    let identifier: Int?
     let cityName: String?
     let code: Int?
 
@@ -23,7 +23,7 @@ struct WeatherResponse: Decodable {
         case base
         case temperature = "main"
         case timezone
-        case id
+        case identifier = "id"
         case cityName = "name"
         case code = "cod"
     }
@@ -35,7 +35,7 @@ struct WeatherResponse: Decodable {
         self.base = try container.decodeIfPresent(String.self, forKey: .base)
         self.temperature = try container.decodeIfPresent(Temperature.self, forKey: .temperature)
         self.timezone = try container.decodeIfPresent(Int.self, forKey: .timezone)
-        self.id = try container.decodeIfPresent(Int.self, forKey: .id)
+        self.identifier = try container.decodeIfPresent(Int.self, forKey: .identifier)
         self.cityName = try container.decodeIfPresent(String.self, forKey: .cityName)
         self.code = try container.decodeIfPresent(Int.self, forKey: .code)
     }
@@ -58,10 +58,25 @@ struct Coordinate: Decodable {
 }
 
 struct Weather: Decodable {
-    let id: Int
+    let identifier: Int?
     let main: String?
     let description: String?
     let icon: String?
+
+    enum CodingKeys: String, CodingKey {
+        case identifier = "id"
+        case main
+        case description
+        case icon
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.identifier = try container.decodeIfPresent(Int.self, forKey: .identifier)
+        self.main = try container.decodeIfPresent(String.self, forKey: .main)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
+        self.icon = try container.decodeIfPresent(String.self, forKey: .icon)
+    }
 }
 
 struct Temperature: Decodable {

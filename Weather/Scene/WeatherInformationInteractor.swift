@@ -32,8 +32,8 @@ class WeatherInformationInteractor: WeatherInformationBusinessLogic, WeatherInfo
         self.presenter?.presentSetupView(response: setupViewResponse)
 
         self.searchHistory = worker.getSearchHistoryFromUserDefault()
-        let updateRecentSearchResponse = WeatherInformation.UpdateRecentSearch.Response(searchHistory: self.searchHistory)
-        self.presenter?.presentUpdateRecentSearch(response: updateRecentSearchResponse)
+        let updateSearchResponse = WeatherInformation.UpdateRecentSearch.Response(searchHistory: self.searchHistory)
+        self.presenter?.presentUpdateRecentSearch(response: updateSearchResponse)
 
         if !self.searchHistory.isEmpty, let mostRecentSearch = self.searchHistory.first {
             let weatherDataRequest = WeatherInformation.WeatherData.Request(
