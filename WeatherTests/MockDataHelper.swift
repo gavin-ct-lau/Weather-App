@@ -9,6 +9,7 @@ import Foundation
 @testable import Weather
 
 class MockDataHelper {
+    // swiftlint:disable function_body_length
     static func getMockWeatherResponse() -> WeatherResponse {
         let json = """
         {
